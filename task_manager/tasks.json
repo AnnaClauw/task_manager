@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "title": "HOLP",
+        "description": "The first task",
+        "deadline": "2024-06-23",
+        "est_comp_time": "5",
+        "completed": true,
+        "time_added": "2024-05-15T16:07:46.249916",
+        "last_updated": "2024-05-18T11:59:23.450822"
+    },
+    {
+        "id": 2,
+        "title": "The Second One",
+        "description": "This is task number 2",
+        "deadline": "2024",
+        "est_comp_time": "8",
+        "completed": false,
+        "time_added": "2024-05-15T16:08:08.480594",
+        "last_updated": "2024-05-15T16:08:08.480594"
+    },
+    {
+        "id": 3,
+        "title": "The difficult one",
+        "description": "THis TaSkE Is Way MorE DiFiFIfiCulte THan THeee Otherssss",
+        "deadline": "2028-08-15",
+        "est_comp_time": "450",
+        "completed": true,
+        "time_added": "2024-05-15T16:08:50.536869",
+        "last_updated": "2024-05-15T16:08:50.536869"
+    }
+]
