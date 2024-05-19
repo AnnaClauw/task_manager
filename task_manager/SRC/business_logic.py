@@ -1,21 +1,21 @@
 from datetime import datetime
-from task import Task
-from data_access import TaskRepository
+from SRC.task.task import Task
+from SRC.data_access import TaskRepository
 
 
 class TaskService:
     def __init__(self):
         self.task_repo = TaskRepository()
 
-    def add_task(self,
-                 title,
-                 description,
-                 deadline,
-                 est_comp_time,):
-        task = Task(title,
-                    description,
-                    deadline,
-                    est_comp_time,)
+    def add_task(self, title, description, deadline, est_comp_time):
+        if not title:
+            raise ValueError("Task title is required")
+        if len(title) > 255:
+            raise ValueError("Task title cannot exceed 255 characters")
+        if deadline < datetime.now():
+            raise ValueError("Deadline cannot be in the past")
+
+        task = Task(title, description, deadline, est_comp_time)
         self.task_repo.add_task(task)
 
     def update_task(self, task_id, **kwargs):
