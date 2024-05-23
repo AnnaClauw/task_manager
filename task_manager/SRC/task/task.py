@@ -2,14 +2,14 @@ from datetime import datetime, timedelta
 
 
 class Task:
-    next_id = 1
+    next_id = 1  # Task ID is automatically assigned.
 
     def __init__(
         self,
         title,
         description,
         deadline,
-        est_comp_time,
+        est_comp_time,  # Estimated time it takes to complete task.
         completed=False
             ):
         self.id = Task.next_id
@@ -52,6 +52,7 @@ class Task:
             self.completed = completed
         self.last_updated = datetime.today()
 
+# Will be used when adding alerts to the task manager.
     def get_remaining_time(self):
         if self.deadline:
             remaining_time = self.deadline - datetime.today()

@@ -1,15 +1,13 @@
 import os
-import json
+import json  # Tasks and users will be stored in json files.
 from datetime import datetime
-from SRC.task.task import Task  # Import the Task class
+from task import Task  # Import the Task class
 
 
 class TaskRepository:
-    def __init__(self, user_file='users.json', task_file='tasks.json',
-                 test_mode=False):
+    def __init__(self, user_file='users.json', task_file='tasks.json'):
         self.user_file = user_file
         self.task_file = task_file
-        self.test_mode = test_mode
         self.users = self.load_data(self.user_file)
         self.tasks = self.load_tasks(self.task_file)
 
@@ -84,11 +82,7 @@ class TaskRepository:
 
     def add_task(self, task):
         self.tasks.append(task)
-        if self.test_mode:
-            test_task_file = f'test_{self.task_file}'
-            self.save_data(self.tasks, test_task_file)
-        else:
-            self.save_data(self.tasks, self.task_file)
+        self.save_data(self.tasks, self.task_file)
 
     def get_task_by_id(self, task_id):
         """Get a task by its ID."""
@@ -101,10 +95,6 @@ class TaskRepository:
         for idx, task in enumerate(self.tasks):
             if task.id == updated_task.id:
                 self.tasks[idx] = updated_task
-                if self.test_mode:
-                    test_task_file = f'test_{self.task_file}'
-                    self.save_data(self.tasks, test_task_file)
-                else:
-                    self.save_data(self.tasks, self.task_file)
+                self.save_data(self.tasks, self.task_file)
                 return
         print(f"Task with ID {updated_task.id} not found.")

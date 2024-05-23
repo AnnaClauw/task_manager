@@ -1,13 +1,13 @@
-import sys
+# import sys
 import os
 import unittest
 from datetime import datetime, timedelta
-from SRC.business_logic import TaskService
-from SRC.data_access import TaskRepository
+from business_logic import TaskService
+from data_access import TaskRepository
 
 # Ensure the SRC directory is in the Python path
-sys.path.insert(0, os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../SRC')))
+# sys.path.insert(0, os.path.abspath(
+# os.path.join(os.path.dirname(__file__), '../SRC')))
 
 
 class TestAddTasks(unittest.TestCase):
@@ -15,13 +15,14 @@ class TestAddTasks(unittest.TestCase):
     def setUp(self):
         # Setup code to initialize TaskService instance before each test
         self.task_service = TaskService()
-        self.task_service.task_repo = TaskRepository(test_mode=True)
+        self.task_service.task_repo = TaskRepository()
 
     def tearDown(self):
-        test_tasks_file = 'task_manager/test_tasks.json'
-        if os.path.exists(test_tasks_file):
-            with open(test_tasks_file, 'w') as f:
+        tasks_file = 'tasks.json'
+        if os.path.exists(tasks_file):
+            with open(tasks_file, 'w') as f:
                 f.write("[]\n")
+            print("Deleted tasks")
         super().tearDown()
 
     def test_add_single_task(self):
@@ -41,8 +42,8 @@ class TestAddTasks(unittest.TestCase):
     def test_add_multiple_tasks(self):
         # Test Case 2: Add multiple tasks
         task1_details = {
-            'title': 'Task 1',
-            'description': 'This is the first task',
+            'title': 'Task A',
+            'description': 'This is the first task of test 2',
             'deadline': datetime.now() + timedelta(days=2),
             'est_comp_time': 2
         }
@@ -88,6 +89,64 @@ class TestAddTasks(unittest.TestCase):
                                        deadline,
                                        est_comp_time)
         super().tearDown()
+
+
+class TestUpdateTasks(unittest.TestCase):
+
+    def setUp(self):
+        # Setup code to initialize TaskService instance before each test
+        self.task_service = TaskService()
+        self.task_service.task_repo = TaskRepository()
+        # Add a task to be updated later
+        title = 'Initial Task'
+        description = 'This is the initial task'
+        deadline = datetime.now() + timedelta(days=2)
+        est_comp_time = 2
+        self.task_service.add_task(title, description, deadline, est_comp_time)
+        self.initial_task = self.task_service.task_repo.get_all_tasks()[0]
+
+    def tearDown(self):
+        tasks_file = 'tasks.json'
+        if os.path.exists(tasks_file):
+            with open(tasks_file, 'w') as f:
+                f.write("[]\n")
+            print("Deleted tasks")
+        super().tearDown()
+
+    def test_update_existing_task(self):
+        # Test Case 1: Update an existing task
+        task_id = self.initial_task.id
+        updates = {
+            'title': 'Updated Task',
+            'description': 'This is the updated task',
+            'deadline': datetime.now() + timedelta(days=5),
+            'est_comp_time': 3,  # in hours
+            'completed': True
+        }
+
+        self.task_service.update_task(task_id, **updates)
+        updated_task = self.task_service.task_repo.get_task_by_id(task_id)
+
+        self.assertEqual(updated_task.title, updates['title'])
+        self.assertEqual(updated_task.description, updates['description'])
+        self.assertEqual(updated_task.deadline, updates['deadline'])
+        self.assertEqual(updated_task.est_comp_time, updates['est_comp_time'])
+        self.assertTrue(updated_task.completed)
+
+    def test_update_nonexistent_task(self):
+        # Test Case 2: Try to update a nonexistent task
+        nonexistent_task_id = 999
+        updates = {
+            'title': 'Nonexistent Task',
+            'description': 'This task does not exist',
+            'deadline': datetime.now() + timedelta(days=5),
+            'est_comp_time': 3
+        }
+
+        self.task_service.update_task(nonexistent_task_id, **updates)
+        updated_task = self.task_service.task_repo.get_task_by_id(
+            nonexistent_task_id)
+        self.assertIsNone(updated_task)
 
 
 if __name__ == '__main__':

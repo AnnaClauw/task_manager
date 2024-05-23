@@ -1,6 +1,6 @@
 from datetime import datetime
-from SRC.task.task import Task
-from SRC.data_access import TaskRepository
+from task import Task
+from data_access import TaskRepository
 
 
 class TaskService:

@@ -1,42 +1,12 @@
 [
     {
-        "id": 1,
+        "id": 3,
         "title": "Task 1",
         "description": "This is the first task",
-        "deadline": "2024-05-21T16:03:55.934356",
+        "deadline": "2024-05-23T19:32:15.774382",
         "est_comp_time": 2,
         "completed": false,
-        "time_added": "2024-05-19T16:03:55.935321",
-        "last_updated": "2024-05-19T16:03:55.935321"
-    },
-    {
-        "id": 2,
-        "title": "Task 2",
-        "description": "This is the second task",
-        "deadline": "2024-05-22T16:03:55.934356",
-        "est_comp_time": 3,
-        "completed": false,
-        "time_added": "2024-05-19T16:03:55.936317",
-        "last_updated": "2024-05-19T16:03:55.936317"
-    },
-    {
-        "id": 5,
-        "title": "Task 1",
-        "description": "This is the first task",
-        "deadline": "2024-05-21T16:03:55.951311",
-        "est_comp_time": 2,
-        "completed": false,
-        "time_added": "2024-05-19T16:03:55.951311",
-        "last_updated": "2024-05-19T16:03:55.951311"
-    },
-    {
-        "id": 17,
-        "title": "Task 1",
-        "description": "This is the first task",
-        "deadline": "2024-05-21T17:00:31.778571",
-        "est_comp_time": 2,
-        "completed": false,
-        "time_added": "2024-05-19T17:00:31.778572",
-        "last_updated": "2024-05-19T17:00:31.778572"
+        "time_added": "2024-05-21T19:32:15.774382",
+        "last_updated": "2024-05-21T19:32:15.774382"
     }
 ]

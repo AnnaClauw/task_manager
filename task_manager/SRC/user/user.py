@@ -1,3 +1,5 @@
+# This module can later be used to add authenticication.
+
 existing_users = []
 
 
